@@ -1,9 +1,40 @@
+import { useEffect, useState } from "react";
 import Heading from "../../components/Heading/Heading";
-import ProductCard from "../../components/ProductCard/ProductCard";
 import Search from "../../components/Search/Search";
+import { PREFIX } from "../../helpers/API";
+import type { IProduct } from "../../interfaces/product.interface";
 import styles from "./Menu.module.css";
+import axios, { AxiosError } from "axios";
+import { MenuList } from "./MenuList/MenuList";
 
 export function Menu() {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>();
+
+  const getMenu = async () => {
+    try {
+      const { data } = await axios.get(`${PREFIX}/products`);
+      return data;
+    } catch (e) {
+      console.error(e);
+      if (e instanceof AxiosError) {
+        setError(e.message);
+      }
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const loadData = async () => {
+      setIsLoading(true);
+      const productsData = await getMenu();
+      setProducts(productsData); // setState вызывается ПОСЛЕ завершения асинхронной операции
+      setIsLoading(false);
+    };
+    loadData();
+  }, []);
+
   return (
     <>
       <div className={styles.head}>
@@ -11,14 +42,9 @@ export function Menu() {
         <Search placeholder="Введите блюдо или состав" />
       </div>
       <div>
-        <ProductCard
-          id={1}
-          title={"Наслаждение"}
-          description={"Салями, руккола, помидоры, оливки"}
-          image={"/product-demo.png"}
-          price={300}
-          rating={4.5}
-        />
+        {error && <>{error}</>}
+        {!isLoading && <MenuList products={products} />}
+        {isLoading && <>Загружаем продукты...</>}
       </div>
     </>
   );
