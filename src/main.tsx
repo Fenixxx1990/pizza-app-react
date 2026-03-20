@@ -12,6 +12,7 @@ import { PREFIX } from "./helpers/API.ts";
 import { AuthLayout } from "./layout/AuthLayout/AuthLayout.tsx";
 import { Login } from "./pages/Login/Login.tsx";
 import { Register } from "./pages/Register/Register.tsx";
+import { RequireAuth } from "./helpers/RequireAuth.tsx";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Menu = lazy(() => import("./pages/Menu/Menu"));
@@ -19,7 +20,11 @@ const Menu = lazy(() => import("./pages/Menu/Menu"));
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <RequireAuth>
+        <Layout />
+      </RequireAuth>
+    ),
     children: [
       {
         path: "/",
