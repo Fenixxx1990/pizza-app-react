@@ -9,6 +9,9 @@ import { Layout } from "./layout/Layout/Layout.tsx";
 import Product from "./pages/Product/Product.tsx";
 import axios from "axios";
 import { PREFIX } from "./helpers/API.ts";
+import { AuthLayout } from "./layout/AuthLayout/AuthLayout.tsx";
+import { Login } from "./pages/Login/Login.tsx";
+import { Register } from "./pages/Register/Register.tsx";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Menu = lazy(() => import("./pages/Menu/Menu"));
@@ -36,9 +39,23 @@ const router = createBrowserRouter([
         errorElement: <>Ошибка</>,
         loader: async ({ params }) => {
           return axios
-            .get(`${PREFIX}/productsd/${params.id}`)
+            .get(`${PREFIX}/products/${params.id}`)
             .then((res) => res.data);
         },
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
       },
     ],
   },
