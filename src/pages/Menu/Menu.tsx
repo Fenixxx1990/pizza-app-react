@@ -22,7 +22,6 @@ export default function Menu() {
       setIsLoading(false);
       return data;
     } catch (e) {
-      console.error(e);
       if (e instanceof AxiosError) {
         setIsLoading(false);
         setError(e.message);

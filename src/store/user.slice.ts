@@ -67,7 +67,6 @@ export const getProfile = createAsyncThunk<
   { state: RootState }
 >("user/getProfile", async (_, thunkApi) => {
   const jwt = thunkApi.getState().user.jwt;
-  console.log(jwt);
   const { data } = await axios.get<IProfile>(`${PREFIX}/user/profile`, {
     headers: {
       Authorization: `Bearer ${jwt}`,

@@ -1,3 +1,48 @@
 .heading {
   margin-bottom: 40px;
 }
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  padding: 17px 0;
+  max-width: 512px;
+}
+
+.line span {
+  color: #9796a1;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.hr {
+  max-width: 512px;
+  margin: 0;
+  border: 1px solid #f1f2f3;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+.text span {
+  color: #bebebe;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.price {
+  font-weight: 400;
+  font-size: 19px;
+  color: var(--text-color);
+}
+
+.checkout {
+  max-width: 512px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+}
